@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LogUsers</RootNamespace>
     <AssemblyName>LogUsers</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -51,6 +51,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AppLogger\AppLogger.csproj">
+      <Project>{434ff31f-97cc-4cb6-b18c-a1d9cdbc15fb}</Project>
+      <Name>AppLogger</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LogTest\LogComponent.csproj">
       <Project>{EE0CC7D7-A1A0-4A16-80E5-8B80B480EB47}</Project>
       <Name>LogComponent</Name>

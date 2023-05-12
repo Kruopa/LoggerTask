@@ -6,6 +6,10 @@
     using System.Text;
     using System.Threading;
 
+
+    // Class does too much.
+    // I/O logic could be moved int separate class
+    // log formating could be moved separate clas
     public class AsyncLog : ILog
     {
         private Thread _runThread;
@@ -17,8 +21,10 @@
 
         public AsyncLog()
         {
+//Hardoded Log directory
             if (!Directory.Exists(@"C:\LogTest")) 
                 Directory.CreateDirectory(@"C:\LogTest");
+
 
             this._writer = File.AppendText(@"C:\LogTest\Log" + DateTime.Now.ToString("yyyyMMdd HHmmss fff") + ".log");
             
@@ -41,13 +47,15 @@
             {
                 if (this._lines.Count > 0)
                 {
+                    // WTF `f` should mean in this place, needs better naming?
                     int f = 0;
+                    // General advice not to create any `new` objects inside the method
                     List<LogLine> _handled = new List<LogLine>();
 
                     foreach (LogLine logLine in this._lines)
                     {
                         f++;
-
+                        // Why 5 is used in here without any arbitrary reason?
                         if (f > 5)
                             continue;
                         
@@ -61,6 +69,7 @@
                             {
                                 _curDate = DateTime.Now;
 
+                                // Hard to change file format
                                 this._writer = File.AppendText(@"C:\LogTest\Log" + DateTime.Now.ToString("yyyyMMdd HHmmss fff") + ".log");
 
                                 this._writer.Write("Timestamp".PadRight(25, ' ') + "\t" + "Data".PadRight(15, ' ') + "\t" + Environment.NewLine);
@@ -91,6 +100,7 @@
                     if (this._QuitWithFlush == true && this._lines.Count == 0) 
                         this._exit = true;
 
+                    //Update frequense should be set on instance creation
                     Thread.Sleep(50);
                 }
             }
